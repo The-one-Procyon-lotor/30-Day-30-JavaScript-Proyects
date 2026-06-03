@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator using HTML CSS and JavaScript</title>
+</head>
+<body>
+    <div class="container">
+        <form>
+            <p>Enter your text or URL</p>
+            <input autofocus type="text" placeholder="Text or URL" id="qrText">
+            <div id="imgBox">
+                <img src="" id="qrImage">
+            </div>
+            <button id="button" onclick="generateQR()">Generate QR Code</button>
+        </div>
+
+        </form>
+    <script>
+        
+        let imgBox = document.getElementById('imgBox');
+        let qrImage = document.getElementById('qrImage');
+        let qrText = document.getElementById('qrText');
+
+        document.getElementById("button").addEventListener("click", function (event) {
+                event.preventDefault();
+            });
+
+           window.onload = () =>{
+            qrText.value = '';
+           }
+            
+            function generateQR(){
+                if(qrText.value.length > 0){
+                    qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + qrText.value;
+                    imgBox.classList.add("show-img");
+                }else{
+                    qrText.classList.add("error");
+                    qrText.style.border = "1px solid red";
+                    qrText.style.backgroundColor = "rgba(255, 0,0 , 0.2)";
+                    setTimeout(()=>{
+                        qrText.classList.remove("error");
+                        qrText.style.border = "";
+                        qrText.style.backgroundColor = "";
+                    },1000);
+                }
+
+            }
+    </script>
+</body>
+</html>
